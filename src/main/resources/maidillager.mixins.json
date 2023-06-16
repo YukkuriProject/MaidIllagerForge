@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "net.yokohama_miyazawa.maidillager.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "MixinPillagerRenderer",
+    "MixinVindicatorRenderer",
+    "MixinEvokerRenderer",
+    "MixinIllusionerRenderer",
+    "MixinIllagerModel",
+    "IllagerModelAccessor"
+  ]
+}
