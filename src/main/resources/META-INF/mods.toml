@@ -1,11 +1,11 @@
 modLoader="javafml" #mandatory
 loaderVersion="[44,)" #mandatory
 
-license="All rights reserved"
+license="https://github.com/Yokohama-Miyazawa/MaidIllager/blob/main/LICENSE"
 
 [[mods]]
 modId="maidillager"
-version="0.1"
+version="0.1.1"
 displayName="MaidIllager"
 authors="Yokohama-Miyazawa"
 description='''
