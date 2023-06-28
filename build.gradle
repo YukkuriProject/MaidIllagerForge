@@ -160,11 +160,11 @@ jar {
     manifest {
         attributes([
                 "Specification-Title"     : "maidillager",
-                "Specification-Vendor"    : "maidillagersareus",
+                "Specification-Vendor"    : "Yokohama-Miyazawa",
                 "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "maidillagersareus",
+                "Implementation-Vendor"   : "Yokohama-Miyazawa",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }

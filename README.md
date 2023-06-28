@@ -1,4 +1,4 @@
-# MaidIllager
+# MaidIllagerForge
 邪悪な村人の見た目が若干変わるMOD
 
 ## 対応バージョン

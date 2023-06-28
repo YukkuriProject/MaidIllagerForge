@@ -1,8 +1,5 @@
-# MaidIllager
+# MaidIllagerForge
 邪悪な村人の見た目が若干変わるMOD
-
-## 対応バージョン
-Minecraft Forge 1.19.3
 
 ## 注意
 - このMODは開発中です。導入は自己責任でお願いします。

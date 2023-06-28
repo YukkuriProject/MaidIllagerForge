@@ -1,7 +1,7 @@
 modLoader="javafml" #mandatory
 loaderVersion="[44,)" #mandatory
 
-license="https://github.com/Yokohama-Miyazawa/MaidIllager/blob/main/LICENSE"
+license="https://github.com/Yokohama-Miyazawa/MaidIllagerForge/blob/main/LICENSE"
 
 [[mods]]
 modId="maidillager"
@@ -11,6 +11,7 @@ authors="Yokohama-Miyazawa"
 description='''
 邪悪な村人の見た目が若干変わるMOD
 '''
+logoFile = "icon.png"
 
 [[dependencies.maidillager]] #optional
     modId="forge"
