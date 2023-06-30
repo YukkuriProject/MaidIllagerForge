@@ -27,3 +27,5 @@ forge*changelog.txt
 # MacOS
 .DS_Store
 
+# Sound File
+*.ogg
