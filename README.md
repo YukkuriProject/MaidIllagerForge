@@ -1,5 +1,7 @@
+![MaidIllagerLogo](MaidIllagerForgeLogo.png)
+
 # MaidIllagerForge
-邪悪な村人の見た目が若干変わるMOD
+邪悪な村人の見た目が若干変わるMOD(Forge版)
 
 ## 対応バージョン
 Minecraft Forge 1.19.3
