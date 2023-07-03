@@ -1,0 +1,137 @@
+{
+  "entity.evoker.ambient": {
+    "replace": true,
+    "sounds": [
+      {"name": "maidillager:ambient/ufufu_01", "pitch": 1.0},
+      {"name": "maidillager:ambient/ufufu_02", "pitch": 1.0},
+      {"name": "maidillager:ambient/kocchikocchi_01", "pitch": 1.0}
+    ],
+    "subtitle": "entity.evoker.ambient"
+  },
+  "entity.evoker.celebrate": {
+    "replace": true,
+    "sounds": [
+      {"name": "maidillager:celebrate/ahahaha_01", "pitch": 1.0},
+      {"name": "maidillager:celebrate/ahahaha_02", "pitch": 1.0},
+      {"name": "maidillager:celebrate/ahahahaha_01", "pitch": 1.0},
+      {"name": "maidillager:celebrate/ahahahahaha_01", "pitch": 1.0}
+    ],
+    "subtitle": "entity.evoker.celebrate"
+  },
+  "entity.evoker.death": {
+    "replace": true,
+    "sounds": [
+      {"name": "maidillager:death/uu_03", "pitch": 1.0}
+    ],
+    "subtitle": "entity.evoker.death"
+  },
+  "entity.evoker.hurt":  {
+    "replace": true,
+    "sounds": [
+      {"name": "maidillager:hurt/aah_01", "pitch": 1.0},
+      {"name": "maidillager:hurt/ita_01", "pitch": 1.0},
+      {"name": "maidillager:hurt/ittaa_01", "pitch": 1.0},
+      {"name": "maidillager:hurt/kya_01", "pitch": 1.0}
+    ],
+    "subtitle": "entity.evoker.hurt"
+  },
+  "entity.illusioner.ambient": {
+    "replace": true,
+    "sounds": [
+      {"name": "maidillager:ambient/domodomo_01", "pitch": 1.0},
+      {"name": "maidillager:ambient/domodomo_02", "pitch": 1.0},
+      {"name": "maidillager:ambient/ayashiimonodewa_01", "pitch": 1.0}
+    ],
+    "subtitle": "entity.illusioner.ambient"
+  },
+  "entity.illusioner.death": {
+    "replace": true,
+    "sounds": [
+      {"name": "maidillager:death/shitsureishimashita_02", "pitch": 1.0}
+    ],
+    "subtitle": "entity.illusioner.death"
+  },
+  "entity.illusioner.hurt":  {
+    "replace": true,
+    "sounds": [
+      {"name": "maidillager:hurt/aah_01", "pitch": 1.0},
+      {"name": "maidillager:hurt/ita_01", "pitch": 1.0},
+      {"name": "maidillager:hurt/kya_01", "pitch": 1.0}
+    ],
+    "subtitle": "entity.illusioner.hurt"
+  },
+  "entity.pillager.ambient": {
+    "replace": true,
+    "sounds": [
+      {"name": "maidillager:ambient/fun_01", "pitch": 1.0},
+      {"name": "maidillager:ambient/fun_02", "pitch": 1.0},
+      {"name": "maidillager:ambient/fun_04", "pitch": 1.0},
+      {"name": "maidillager:ambient/oi_01", "pitch": 1.0},
+      {"name": "maidillager:ambient/oi_02", "pitch": 1.0},
+      {"name": "maidillager:ambient/sokoda_02", "pitch": 1.0}
+    ],
+    "subtitle": "entity.pillager.ambient"
+  },
+  "entity.pillager.celebrate": {
+    "replace": true,
+    "sounds": [
+      {"name": "maidillager:celebrate/yoshi_02", "pitch": 1.0},
+      {"name": "maidillager:celebrate/zakodane_01", "pitch": 1.0}
+    ],
+    "subtitle": "entity.pillager.celebrate"
+  },
+  "entity.pillager.death": {
+    "replace": true,
+    "sounds": [
+      {"name": "maidillager:death/uu_03", "pitch": 1.0},
+      {"name": "maidillager:death/konnahazuja_02", "pitch": 1.0}
+    ],
+    "subtitle": "entity.pillager.death"
+  },
+  "entity.pillager.hurt":  {
+    "replace": true,
+    "sounds": [
+      {"name": "maidillager:hurt/kusou_01", "pitch": 1.0},
+      {"name": "maidillager:hurt/kuu_02", "pitch": 1.0},
+      {"name": "maidillager:hurt/naniwosuru_01", "pitch": 1.0},
+      {"name": "maidillager:hurt/nna_01", "pitch": 1.0}
+    ],
+    "subtitle": "entity.pillager.hurt"
+  },
+  "entity.vindicator.ambient": {
+    "replace": true,
+    "sounds": [
+      {"name": "maidillager:ambient/ya_01", "pitch": 1.0},
+      {"name": "maidillager:ambient/ya_02", "pitch": 1.0},
+      {"name": "maidillager:ambient/yahhoo_01", "pitch": 1.0},
+      {"name": "maidillager:ambient/yahhoo_02", "pitch": 1.0},
+      {"name": "maidillager:ambient/kocchikocchi_01", "pitch": 1.0}
+    ],
+    "subtitle": "entity.vindicator.ambient"
+  },
+  "entity.vindicator.celebrate": {
+    "replace": true,
+    "sounds": [
+      {"name": "maidillager:celebrate/ahahaha_01", "pitch": 1.0},
+      {"name": "maidillager:celebrate/ahahaha_02", "pitch": 1.0},
+      {"name": "maidillager:celebrate/ahahahaha_01", "pitch": 1.0},
+      {"name": "maidillager:celebrate/ahahahahaha_01", "pitch": 1.0}
+    ],
+    "subtitle": "entity.vindicator.celebrate"
+  },
+  "entity.vindicator.death": {
+    "replace": true,
+    "sounds": [
+      {"name": "maidillager:death/uu_03", "pitch": 1.0}
+    ],
+    "subtitle": "entity.vindicator.death"
+  },
+  "entity.vindicator.hurt":  {
+    "replace": true,
+    "sounds": [
+      {"name": "maidillager:hurt/ita_01", "pitch": 1.0},
+      {"name": "maidillager:hurt/ittaa_01", "pitch": 1.0}
+    ],
+    "subtitle": "entity.vindicator.hurt"
+  }
+}
