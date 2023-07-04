@@ -1,6 +1,7 @@
 # MaidIllager License
 
 以下の内容に同意できる方にのみこのMODの使用を許可します。
+ただし、`assets/maidillager/sounds`内のファイルについてはあみたろの声素材工房様の規約( https://amitaro.net/voice/voice_rule/ )に準拠します。
 
 ## 禁止行為
 いかなる営利目的での使用を禁止します。

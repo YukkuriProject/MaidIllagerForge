@@ -14,6 +14,9 @@
 ## 使用画像
 [LittleMaidModelLoader-Architectury](https://github.com/SistrScarlet/LittleMaidModelLoader-Architectury)のテクスチャ画像を改変の上使用しています。
 
+## 使用音声
+あみたろの声素材工房様( https://amitaro.net/ )の音声を使用しています。
+
 ## 参考サイト・プログラム
 下記のサイトおよびプログラムを参考にしています。情報提供に感謝いたします。
 - [LittleMaidModelLoader-Architectury(Sistr様)](https://github.com/SistrScarlet/LittleMaidModelLoader-Architectury)
