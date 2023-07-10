@@ -104,8 +104,12 @@ public class MixinIllagerModel {
             this.setAngle(rightLeg, -1.256637F, 0.3141593F, 0.0F);
             this.setAngle(leftLeg, -1.256637F, -0.3141593F, 0.0F);
         } else {
-            this.setAngle(rightArm, (float)Math.cos(limbSwing * 0.6662 + Math.PI) * 2.0F * limbSwingAmount * 0.5F, 0.0F, (float)Math.PI / 5.0F);
-            this.setAngle(leftArm, (float)Math.cos(limbSwing * 0.6662) * 2.0F * limbSwingAmount * 0.5F, 0.0F, -(float)Math.PI / 5.0F);
+            float xAngle = (float)Math.cos(limbSwing * 0.6662) * 2.0F * limbSwingAmount * 0.5F;
+            float defaultZAngle = (float)Math.PI / 5.0F;
+            float zSwing = ((float)Math.PI / 40.0F) * (float)Math.sin(3.0F * ageInTicks * ((float)Math.PI / 180F));
+            float zAngle = defaultZAngle + zSwing;
+            this.setAngle(rightArm, -xAngle, 0.0F, zAngle);
+            this.setAngle(leftArm, xAngle, 0.0F, -zAngle);
             this.setAngle(rightLeg, (float)Math.cos(limbSwing * 0.6662) * 1.4F * limbSwingAmount * 0.5F, 0.0F, 0.0F);
             this.setAngle(leftLeg, (float)Math.cos(limbSwing * 0.6662 + Math.PI) * 1.4F * limbSwingAmount * 0.5F, 0.0F, 0.0F);
         }
