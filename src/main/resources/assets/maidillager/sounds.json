@@ -104,8 +104,7 @@
       {"name": "maidillager:ambient/ya_01", "pitch": 1.0},
       {"name": "maidillager:ambient/ya_02", "pitch": 1.0},
       {"name": "maidillager:ambient/yahhoo_01", "pitch": 1.0},
-      {"name": "maidillager:ambient/yahhoo_02", "pitch": 1.0},
-      {"name": "maidillager:ambient/kocchikocchi_01", "pitch": 1.0}
+      {"name": "maidillager:ambient/yahhoo_02", "pitch": 1.0}
     ],
     "subtitle": "entity.vindicator.ambient"
   },
