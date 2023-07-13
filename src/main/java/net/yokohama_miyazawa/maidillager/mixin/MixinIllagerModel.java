@@ -148,21 +148,9 @@ public class MixinIllagerModel {
         }
 
         if (!(entity instanceof Illusioner)) {  // イリュージョナー以外の表情変化
-            int entityId = entity.getId();
-            float blinkTheta = ageInTicks +(float)entityId;
-            if (0 > (float) Math.sin(blinkTheta * 0.05F) + (float) Math.sin(blinkTheta * 0.13F) + (float) Math.sin(blinkTheta * 0.7F) + 2.55F) {  // 瞬き
-                this.blinkEyeR.visible = true;
-                this.blinkEyeL.visible = true;
-            } else if (this.blinkEyeR.visible || this.blinkEyeL.visible) {
+            if (this.isHurt(entity) || entity.isDeadOrDying()) {  // ダメージを受けたもしくは死ぬ時
                 this.blinkEyeR.visible = false;
                 this.blinkEyeL.visible = false;
-            }
-
-            if (entity.hurtTime > 0 || entity.isDeadOrDying()) {  // ダメージを受けたもしくは死ぬ時
-                if (this.blinkEyeR.visible || this.blinkEyeL.visible) {  // 瞬きをやめる
-                    this.blinkEyeR.visible = false;
-                    this.blinkEyeL.visible = false;
-                }
                 if (entity instanceof Pillager && !entity.isDeadOrDying()) {  // ピリジャーがダメージを受けた時は利き腕とは逆の目だけ閉じる
                     ModelPart closeEye = entity.getMainArm() == HumanoidArm.LEFT ? this.hurtEyeR : this.hurtEyeL;
                     closeEye.visible = true;
@@ -171,14 +159,32 @@ public class MixinIllagerModel {
                     this.hurtEyeL.visible = true;
                 }
                 this.mouth.visible = true;
-            } else if (this.hurtEyeR.visible || this.hurtEyeL.visible || this.mouth.visible) {
+            } else if (this.shouldBlink(entity, ageInTicks)) {  // 瞬き
                 this.hurtEyeR.visible = false;
                 this.hurtEyeL.visible = false;
                 this.mouth.visible = false;
+                this.blinkEyeR.visible = true;
+                this.blinkEyeL.visible = true;
+            } else {
+                this.hurtEyeR.visible = false;
+                this.hurtEyeL.visible = false;
+                this.mouth.visible = false;
+                this.blinkEyeR.visible = false;
+                this.blinkEyeL.visible = false;
             }
         }
 
         cir.cancel();
+    }
+
+    private <T extends AbstractIllager> boolean isHurt(T entity) {
+        return entity.hurtTime > 0;
+    }
+
+    private <T extends AbstractIllager> boolean shouldBlink(T entity, float tick) {
+        int entityId = entity.getId();
+        float blinkTheta = tick +(float)entityId;
+        return 0 > (float) Math.sin(blinkTheta * 0.05F) + (float) Math.sin(blinkTheta * 0.13F) + (float) Math.sin(blinkTheta * 0.7F) + 2.55F;
     }
 
     private void setAngle(ModelPart part, float xAngle, float yAngle, float zAngle) {
