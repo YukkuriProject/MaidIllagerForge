@@ -7,6 +7,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.monster.Illusioner;
 import net.minecraft.world.entity.monster.Pillager;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,6 +24,11 @@ public class MixinIllagerModel {
     private ModelPart sideburns;
     private ModelPart chignonB;
     private ModelPart tail;
+    private ModelPart blinkEyeR;
+    private ModelPart blinkEyeL;
+    private ModelPart hurtEyeR;
+    private ModelPart hurtEyeL;
+    private ModelPart mouth;
     private ModelPart Skirt;
 
     @Inject(method = "<init>", at = @At("TAIL"))
@@ -32,12 +38,22 @@ public class MixinIllagerModel {
         this.sideburns = head.getChild("sideburns");
         this.chignonB = head.getChild("chignonB");
         this.tail = head.getChild("tail");
+        this.blinkEyeR = head.getChild("blinkEyeR");
+        this.blinkEyeL = head.getChild("blinkEyeL");
+        this.hurtEyeR = head.getChild("hurtEyeR");
+        this.hurtEyeL = head.getChild("hurtEyeL");
+        this.mouth = head.getChild("mouth");
         this.Skirt = root.getChild("Skirt");
 
         this.hire.visible = false;
         this.sideburns.visible = false;
         this.chignonB.visible = false;
         this.tail.visible = false;
+        this.blinkEyeR.visible = false;
+        this.blinkEyeL.visible = false;
+        this.hurtEyeR.visible = false;
+        this.hurtEyeL.visible = false;
+        this.mouth.visible = false;
 
         ModelPart hat = ((IllagerModel)(Object)this).getHat();
         hat.visible = false;
@@ -59,6 +75,11 @@ public class MixinIllagerModel {
         head.addOrReplaceChild("sideburns", CubeListBuilder.create().texOffs(24, 0).addBox(-4.0F, 0.0F, -4.0F, 8.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
         head.addOrReplaceChild("chignonB", CubeListBuilder.create().texOffs(52, 10).addBox(-2.0F, -7.2F, 4.0F, 4.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
         head.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(46, 20).addBox(-1.5F, -7.8F, 4.0F, 3.0F, 9.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        head.addOrReplaceChild("blinkEyeR", CubeListBuilder.create().texOffs(4, 0).addBox(-3.0F, -4.0F, -4.01F, 2.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        head.addOrReplaceChild("blinkEyeL", CubeListBuilder.create().texOffs(4, 0).mirror().addBox(1.0F, -4.0F, -4.01F, 2.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
+        head.addOrReplaceChild("hurtEyeR", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -4.0F, -4.01F, 2.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        head.addOrReplaceChild("hurtEyeL", CubeListBuilder.create().texOffs(0, 0).mirror().addBox(1.0F, -4.0F, -4.01F, 2.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
+        head.addOrReplaceChild("mouth", CubeListBuilder.create().texOffs(0, 6).addBox(-1.0F, -1.0F, -4.01F, 2.0F, 1.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(32, 8).addBox(-3.0F, 0.0F, -2.0F, 6.0F, 7.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F+heightOffset, 0.0F));
         PartDefinition rightArm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(48, 0).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 8.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-4.0F, 1.0F+heightOffset, 0.0F));
@@ -104,8 +125,12 @@ public class MixinIllagerModel {
             this.setAngle(rightLeg, -1.256637F, 0.3141593F, 0.0F);
             this.setAngle(leftLeg, -1.256637F, -0.3141593F, 0.0F);
         } else {
-            this.setAngle(rightArm, (float)Math.cos(limbSwing * 0.6662 + Math.PI) * 2.0F * limbSwingAmount * 0.5F, 0.0F, (float)Math.PI / 5.0F);
-            this.setAngle(leftArm, (float)Math.cos(limbSwing * 0.6662) * 2.0F * limbSwingAmount * 0.5F, 0.0F, -(float)Math.PI / 5.0F);
+            float xAngle = (float)Math.cos(limbSwing * 0.6662) * 2.0F * limbSwingAmount * 0.5F;
+            float defaultZAngle = (float)Math.PI / 5.0F;
+            float zSwing = ((float)Math.PI / 40.0F) * (float)Math.sin(3.0F * ageInTicks * ((float)Math.PI / 180F));
+            float zAngle = defaultZAngle + zSwing;
+            this.setAngle(rightArm, -xAngle, 0.0F, zAngle);
+            this.setAngle(leftArm, xAngle, 0.0F, -zAngle);
             this.setAngle(rightLeg, (float)Math.cos(limbSwing * 0.6662) * 1.4F * limbSwingAmount * 0.5F, 0.0F, 0.0F);
             this.setAngle(leftLeg, (float)Math.cos(limbSwing * 0.6662 + Math.PI) * 1.4F * limbSwingAmount * 0.5F, 0.0F, 0.0F);
         }
@@ -126,7 +151,44 @@ public class MixinIllagerModel {
             }
         }
 
+        if (!(entity instanceof Illusioner)) {  // イリュージョナー以外の表情変化
+            if (this.isHurt(entity) || entity.isDeadOrDying()) {  // ダメージを受けたもしくは死ぬ時
+                this.blinkEyeR.visible = false;
+                this.blinkEyeL.visible = false;
+                if (entity instanceof Pillager && !entity.isDeadOrDying()) {  // ピリジャーがダメージを受けた時は利き腕とは逆の目だけ閉じる
+                    ModelPart closeEye = entity.getMainArm() == HumanoidArm.LEFT ? this.hurtEyeR : this.hurtEyeL;
+                    closeEye.visible = true;
+                } else {
+                    this.hurtEyeR.visible = true;
+                    this.hurtEyeL.visible = true;
+                }
+                this.mouth.visible = true;
+            } else if (this.shouldBlink(entity, ageInTicks)) {  // 瞬き
+                this.hurtEyeR.visible = false;
+                this.hurtEyeL.visible = false;
+                this.mouth.visible = false;
+                this.blinkEyeR.visible = true;
+                this.blinkEyeL.visible = true;
+            } else {
+                this.hurtEyeR.visible = false;
+                this.hurtEyeL.visible = false;
+                this.mouth.visible = false;
+                this.blinkEyeR.visible = false;
+                this.blinkEyeL.visible = false;
+            }
+        }
+
         cir.cancel();
+    }
+
+    private <T extends AbstractIllager> boolean isHurt(T entity) {
+        return entity.hurtTime > 0;
+    }
+
+    private <T extends AbstractIllager> boolean shouldBlink(T entity, float tick) {
+        int entityId = entity.getId();
+        float blinkTheta = tick +(float)entityId;
+        return 0 > (float) Math.sin(blinkTheta * 0.05F) + (float) Math.sin(blinkTheta * 0.13F) + (float) Math.sin(blinkTheta * 0.7F) + 2.55F;
     }
 
     private void setAngle(ModelPart part, float xAngle, float yAngle, float zAngle) {
