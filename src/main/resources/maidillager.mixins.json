@@ -8,6 +8,8 @@
     "MixinEvokerRenderer",
     "MixinIllusionerRenderer",
     "MixinIllagerModel",
-    "IllagerModelAccessor"
+    "IllagerModelAccessor",
+    "MixinSoundEvents",
+    "SoundEventsInvoker"
   ]
 }
