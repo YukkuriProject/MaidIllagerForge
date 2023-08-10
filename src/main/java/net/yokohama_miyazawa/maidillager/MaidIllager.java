@@ -20,9 +20,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-import static net.yokohama_miyazawa.maidillager.init.MaidIllagerSounds.SOUND_EVENTS;
-
-
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(MaidIllager.MODID)
 public class MaidIllager
@@ -37,9 +34,7 @@ public class MaidIllager
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
 
-        SOUND_EVENTS.register(modEventBus);
-
-        LOGGER.info("MaidIllager");
+        MaidIllagerSounds.SOUND_EVENTS.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
