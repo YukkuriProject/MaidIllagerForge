@@ -1,11 +1,11 @@
 modLoader="javafml" #mandatory
-loaderVersion="[44,)" #mandatory
+loaderVersion="[43,)" #mandatory
 
 license="https://github.com/Yokohama-Miyazawa/MaidIllagerForge/blob/main/LICENSE"
 
 [[mods]]
 modId="maidillager"
-version="0.3.1"
+version="${file.jarVersion}"
 displayName="MaidIllager"
 authors="Yokohama-Miyazawa"
 description='''
@@ -17,13 +17,13 @@ logoFile = "icon.png"
 [[dependencies.maidillager]] #optional
     modId="forge"
     mandatory=true
-    versionRange="[44,)"
+    versionRange="[43,)"
     ordering="NONE"
     side="CLIENT"
 
 [[dependencies.maidillager]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.3,1.20)"
+    versionRange="[1.19.2,1.20)"
     ordering="NONE"
     side="BOTH"
