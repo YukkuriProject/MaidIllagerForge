@@ -1,7 +1,6 @@
 package net.yokohama_miyazawa.maidillager;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraftforge.api.distmarker.Dist;
@@ -17,7 +16,6 @@ import net.yokohama_miyazawa.maidillager.init.MaidIllagerSounds;
 import org.slf4j.Logger;
 
 import java.util.Objects;
-import java.util.Optional;
 import java.util.regex.Pattern;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -54,17 +52,13 @@ public class MaidIllager
     @SubscribeEvent
     public void setEntitySounds(PlayLevelSoundEvent event) {
         if (event.getSource() == SoundSource.HOSTILE) {
-            Holder<SoundEvent> sound = Objects.requireNonNull(
+            SoundEvent sound = Objects.requireNonNull(
                     event.getSound(),
                     "Original sound must not be null.");
-            String soundId = sound.get().getLocation().toString().split(":")[1];
+            String soundId = sound.getLocation().toString().split(":")[1];
             if (isIllager(soundId) && isIllagerTalkEvent(soundId)) {
-                getMaidSoundEventHolder(soundId).ifPresentOrElse(v -> {
-                    event.setNewPitch(1.0f);
-                    event.setSound(v);
-                }, () -> {
-                    LOGGER.warn("MaidSoundEventHolder is null. Nothing done.");
-                });
+                event.setNewPitch(1.0f);
+                event.setSound(getMaidSoundEvent(soundId));
             }
         }
     }
@@ -77,25 +71,25 @@ public class MaidIllager
         return id.endsWith("ambient") || id.endsWith("celebrate") || id.endsWith("death") || id.endsWith("hurt");
     }
 
-    private Optional<Holder<SoundEvent>> getMaidSoundEventHolder(String soundId) {
+    private SoundEvent getMaidSoundEvent(String soundId) {
         String[] ids = soundId.split(Pattern.quote("."));
         String mobAction = String.join(".", ids[1], ids[2]);
         switch(mobAction){
-            case "evoker.ambient"       -> { return MaidIllagerSounds.MAID_EVOKER_AMBIENT.getHolder(); }
-            case "evoker.celebrate"     -> { return MaidIllagerSounds.MAID_EVOKER_CELEBRATE.getHolder(); }
-            case "evoker.death"         -> { return MaidIllagerSounds.MAID_EVOKER_DEATH.getHolder(); }
-            case "evoker.hurt"          -> { return MaidIllagerSounds.MAID_EVOKER_HURT.getHolder(); }
-            case "illusioner.ambient"   -> { return MaidIllagerSounds.MAID_ILLUSIONER_AMBIENT.getHolder(); }
-            case "illusioner.death"     -> { return MaidIllagerSounds.MAID_ILLUSIONER_DEATH.getHolder(); }
-            case "illusioner.hurt"      -> { return MaidIllagerSounds.MAID_ILLUSIONER_HURT.getHolder(); }
-            case "pillager.ambient"     -> { return MaidIllagerSounds.MAID_PILLAGER_AMBIENT.getHolder(); }
-            case "pillager.celebrate"   -> { return MaidIllagerSounds.MAID_PILLAGER_CELEBRATE.getHolder(); }
-            case "pillager.death"       -> { return MaidIllagerSounds.MAID_PILLAGER_DEATH.getHolder(); }
-            case "pillager.hurt"        -> { return MaidIllagerSounds.MAID_PILLAGER_HURT.getHolder(); }
-            case "vindicator.ambient"   -> { return MaidIllagerSounds.MAID_VINDICATOR_AMBIENT.getHolder(); }
-            case "vindicator.celebrate" -> { return MaidIllagerSounds.MAID_VINDICATOR_CELEBRATE.getHolder(); }
-            case "vindicator.death"     -> { return MaidIllagerSounds.MAID_VINDICATOR_DEATH.getHolder(); }
-            case "vindicator.hurt"      -> { return MaidIllagerSounds.MAID_VINDICATOR_HURT.getHolder(); }
+            case "evoker.ambient"       -> { return MaidIllagerSounds.MAID_EVOKER_AMBIENT.get(); }
+            case "evoker.celebrate"     -> { return MaidIllagerSounds.MAID_EVOKER_CELEBRATE.get(); }
+            case "evoker.death"         -> { return MaidIllagerSounds.MAID_EVOKER_DEATH.get(); }
+            case "evoker.hurt"          -> { return MaidIllagerSounds.MAID_EVOKER_HURT.get(); }
+            case "illusioner.ambient"   -> { return MaidIllagerSounds.MAID_ILLUSIONER_AMBIENT.get(); }
+            case "illusioner.death"     -> { return MaidIllagerSounds.MAID_ILLUSIONER_DEATH.get(); }
+            case "illusioner.hurt"      -> { return MaidIllagerSounds.MAID_ILLUSIONER_HURT.get(); }
+            case "pillager.ambient"     -> { return MaidIllagerSounds.MAID_PILLAGER_AMBIENT.get(); }
+            case "pillager.celebrate"   -> { return MaidIllagerSounds.MAID_PILLAGER_CELEBRATE.get(); }
+            case "pillager.death"       -> { return MaidIllagerSounds.MAID_PILLAGER_DEATH.get(); }
+            case "pillager.hurt"        -> { return MaidIllagerSounds.MAID_PILLAGER_HURT.get(); }
+            case "vindicator.ambient"   -> { return MaidIllagerSounds.MAID_VINDICATOR_AMBIENT.get(); }
+            case "vindicator.celebrate" -> { return MaidIllagerSounds.MAID_VINDICATOR_CELEBRATE.get(); }
+            case "vindicator.death"     -> { return MaidIllagerSounds.MAID_VINDICATOR_DEATH.get(); }
+            case "vindicator.hurt"      -> { return MaidIllagerSounds.MAID_VINDICATOR_HURT.get(); }
             default -> { throw new IllegalArgumentException(); }
         }
     }
