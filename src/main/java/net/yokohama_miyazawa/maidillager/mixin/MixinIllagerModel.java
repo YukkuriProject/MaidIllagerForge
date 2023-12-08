@@ -1,5 +1,6 @@
 package net.yokohama_miyazawa.maidillager.mixin;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.IllagerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -195,5 +196,14 @@ public class MixinIllagerModel {
         part.xRot = xAngle;
         part.yRot = yAngle;
         part.zRot = zAngle;
+    }
+
+    // 腕と武器の位置関係を調整
+    @Inject(method = "translateToHand", at = @At("TAIL"), cancellable = true)
+    private void onTranslateToHand(HumanoidArm arm, PoseStack poseStack, CallbackInfo cir) {
+        double dx = (arm == HumanoidArm.LEFT) ? -0.05 : 0.05;
+        double dy = -0.1;
+        double dz = 0.04;
+        poseStack.translate(dx, dy, dz);
     }
 }
