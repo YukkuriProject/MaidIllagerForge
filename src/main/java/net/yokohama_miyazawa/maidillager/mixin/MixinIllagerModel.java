@@ -5,9 +5,7 @@ import net.minecraft.client.model.IllagerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.world.entity.monster.AbstractIllager;
-import net.minecraft.world.entity.monster.Illusioner;
-import net.minecraft.world.entity.monster.Pillager;
+import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -21,10 +19,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(IllagerModel.class)
 public class MixinIllagerModel {
 
-    private ModelPart hire;
-    private ModelPart sideburns;
     private ModelPart chignonB;
     private ModelPart tail;
+    private ModelPart hair;
+    private ModelPart forelock;
     private ModelPart blinkEyeR;
     private ModelPart blinkEyeL;
     private ModelPart hurtEyeR;
@@ -35,10 +33,10 @@ public class MixinIllagerModel {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void init(ModelPart root, CallbackInfo cir) {
         ModelPart head = ((IllagerModel)(Object)this).getHead();
-        this.hire = head.getChild("hire");
-        this.sideburns = head.getChild("sideburns");
         this.chignonB = head.getChild("chignonB");
         this.tail = head.getChild("tail");
+        this.hair = head.getChild("hair");
+        this.forelock = head.getChild("forelock");
         this.blinkEyeR = head.getChild("blinkEyeR");
         this.blinkEyeL = head.getChild("blinkEyeL");
         this.hurtEyeR = head.getChild("hurtEyeR");
@@ -46,10 +44,9 @@ public class MixinIllagerModel {
         this.mouth = head.getChild("mouth");
         this.Skirt = root.getChild("Skirt");
 
-        this.hire.visible = false;
-        this.sideburns.visible = false;
         this.chignonB.visible = false;
         this.tail.visible = false;
+        this.forelock.visible = false;
         this.blinkEyeR.visible = false;
         this.blinkEyeL.visible = false;
         this.hurtEyeR.visible = false;
@@ -72,10 +69,10 @@ public class MixinIllagerModel {
         float heightOffset = 8.0F;
 
         PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F+heightOffset, 0.0F));
-        head.addOrReplaceChild("hire", CubeListBuilder.create().texOffs(24, 0).addBox(-4.0F, 0.0F, 1.0F, 8.0F, 4.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-        head.addOrReplaceChild("sideburns", CubeListBuilder.create().texOffs(24, 0).addBox(-4.0F, 0.0F, -4.0F, 8.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
         head.addOrReplaceChild("chignonB", CubeListBuilder.create().texOffs(52, 10).addBox(-2.0F, -7.2F, 4.0F, 4.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
         head.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(46, 20).addBox(-1.5F, -7.8F, 4.0F, 3.0F, 9.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        head.addOrReplaceChild("hair", CubeListBuilder.create().texOffs(0, 32).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 12.0F, 8.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        head.addOrReplaceChild("forelock", CubeListBuilder.create().texOffs(44, 33).addBox(-4.0F, -8.0F, -4.5F, 8.0F, 4.0F, 2.0F, new CubeDeformation(0.3F)), PartPose.offset(0.0F, 0.0F, 0.0F));
         head.addOrReplaceChild("blinkEyeR", CubeListBuilder.create().texOffs(4, 0).addBox(-3.0F, -4.0F, -4.01F, 2.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
         head.addOrReplaceChild("blinkEyeL", CubeListBuilder.create().texOffs(4, 0).mirror().addBox(1.0F, -4.0F, -4.01F, 2.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
         head.addOrReplaceChild("hurtEyeR", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -4.0F, -4.01F, 2.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
@@ -93,7 +90,7 @@ public class MixinIllagerModel {
         head.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
         partdefinition.addOrReplaceChild("arms", CubeListBuilder.create().texOffs(32, 8).addBox(-3.0F, 0.0F, -2.0F, 6.0F, 7.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F+heightOffset, 0.0F));
 
-        cir.setReturnValue(LayerDefinition.create(meshdefinition, 64, 32));
+        cir.setReturnValue(LayerDefinition.create(meshdefinition, 64, 64));
     }
 
     @Inject(method = "setupAnim", at = @At("HEAD"), cancellable = true)
@@ -106,9 +103,9 @@ public class MixinIllagerModel {
         if (entity instanceof Pillager || entity instanceof Illusioner) {
             this.chignonB.visible = true;
             this.tail.visible = true;
-        } else {
-            this.sideburns.visible = true;
-            this.hire.visible = true;
+        }
+        if (entity instanceof Evoker || entity instanceof Pillager) {
+            this.forelock.visible = true;
         }
 
         ModelPart head = ((IllagerModel)(Object)this).getHead();
@@ -163,7 +160,9 @@ public class MixinIllagerModel {
                     this.hurtEyeR.visible = true;
                     this.hurtEyeL.visible = true;
                 }
-                this.mouth.visible = true;
+                if (entity instanceof Pillager || entity instanceof Vindicator || entity.getId() % 2 == 0) {
+                    this.mouth.visible = true;
+                }
             } else if (this.shouldBlink(entity, ageInTicks)) {  // 瞬き
                 this.hurtEyeR.visible = false;
                 this.hurtEyeL.visible = false;
