@@ -1,7 +1,9 @@
 package net.yokohama_miyazawa.maidillager;
 
+import com.mojang.authlib.minecraft.client.MinecraftClient;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.Holder;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraftforge.api.distmarker.Dist;
