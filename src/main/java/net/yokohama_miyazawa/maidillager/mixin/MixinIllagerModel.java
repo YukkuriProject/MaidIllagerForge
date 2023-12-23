@@ -66,6 +66,7 @@ public class MixinIllagerModel {
         PartDefinition partdefinition = meshdefinition.getRoot();
 
         // オリジナルとの身長差分、体全体を下にずらす
+        // move by original's height (translated by rensatopc)
         float heightOffset = 8.0F;
 
         PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F+heightOffset, 0.0F));
@@ -87,6 +88,7 @@ public class MixinIllagerModel {
         PartDefinition Skirt = partdefinition.addOrReplaceChild("Skirt", CubeListBuilder.create().texOffs(0, 16).addBox(-4.0F, 0.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 5.0F+heightOffset, 0.0F));
 
         // ダミーの帽子と腕
+        // dummy's cap and arm (translated by rensatopc)
         head.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
         partdefinition.addOrReplaceChild("arms", CubeListBuilder.create().texOffs(32, 8).addBox(-3.0F, 0.0F, -2.0F, 6.0F, 7.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F+heightOffset, 0.0F));
 
@@ -117,7 +119,7 @@ public class MixinIllagerModel {
         ModelPart rightLeg = ((IllagerModelAccessor) (Object)this).getRightLeg();
         ModelPart leftLeg  = ((IllagerModelAccessor) (Object)this).getLeftLeg();
         // TODO: ラヴェジャーに乗っている時に下半身がめり込むのを解消する
-        if (((IllagerModel)(Object)this).riding) {  // ラヴェジャーに乗っている時
+        if (((IllagerModel)(Object)this).riding) {  // ラヴェジャーに乗っている時 // when riding a ravager (translated by rensatopc)
             this.setAngle(rightArm, -0.6283185F, 0.0F, 0.0F);
             this.setAngle(leftArm, -0.6283185F, 0.0F, 0.0F);
             this.setAngle(rightLeg, -1.256637F, 0.3141593F, 0.0F);
@@ -149,11 +151,11 @@ public class MixinIllagerModel {
             }
         }
 
-        if (!(entity instanceof Illusioner)) {  // イリュージョナー以外の表情変化
-            if (this.isHurt(entity) || entity.isDeadOrDying()) {  // ダメージを受けたもしくは死ぬ時
+        if (!(entity instanceof Illusioner)) {  // イリュージョナー以外の表情変化 // expression change without a illusioner
+            if (this.isHurt(entity) || entity.isDeadOrDying()) {  // ダメージを受けたもしくは死ぬ時 // When damaged or died (translated by rensatopc)
                 this.blinkEyeR.visible = false;
                 this.blinkEyeL.visible = false;
-                if (entity instanceof Pillager && !entity.isDeadOrDying()) {  // ピリジャーがダメージを受けた時は利き腕とは逆の目だけ閉じる
+                if (entity instanceof Pillager && !entity.isDeadOrDying()) {  // ピリジャーがダメージを受けた時は利き腕とは逆の目だけ閉じる // When pilliger damaged, He close main arm and reverse eye (translated by rensatopc)
                     ModelPart closeEye = entity.getMainArm() == HumanoidArm.LEFT ? this.hurtEyeR : this.hurtEyeL;
                     closeEye.visible = true;
                 } else {
@@ -163,7 +165,7 @@ public class MixinIllagerModel {
                 if (entity instanceof Pillager || entity instanceof Vindicator || entity.getId() % 2 == 0) {
                     this.mouth.visible = true;
                 }
-            } else if (this.shouldBlink(entity, ageInTicks)) {  // 瞬き
+            } else if (this.shouldBlink(entity, ageInTicks)) {  // 瞬き // eye blink (translated by rensatopc)
                 this.hurtEyeR.visible = false;
                 this.hurtEyeL.visible = false;
                 this.mouth.visible = false;
@@ -198,6 +200,7 @@ public class MixinIllagerModel {
     }
 
     // 腕と武器の位置関係を調整
+    // control arm position and weapon position (translated by rensatopc)
     @Inject(method = "translateToHand", at = @At("TAIL"), cancellable = true)
     private void onTranslateToHand(HumanoidArm arm, PoseStack poseStack, CallbackInfo cir) {
         double dx = (arm == HumanoidArm.LEFT) ? -0.05 : 0.05;

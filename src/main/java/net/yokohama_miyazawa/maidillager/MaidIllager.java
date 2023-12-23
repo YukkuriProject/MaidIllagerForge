@@ -28,25 +28,32 @@ public class MaidIllager
 
     public MaidIllager()
     {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        // このコードは使用されてないのでコメントアウトしています。 (by rensatopc)
+        // This code is not using, so It is comment outed. (by rensatopc; translated by rensatopc)
+//        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+//        modEventBus.addListener(this::commonSetup);
 
-        modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event)
-    {
-
-    }
+    // このコードは使用されてないのでコメントアウトしています。 (by rensatopc)
+    // This code is not using, so It is comment outed. (by rensatopc; translated by rensatopc)
+//    private void commonSetup(final FMLCommonSetupEvent event)
+//    {
+//
+//    }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents
-    {
-
-    }
+    // このコードは使用されてないのでコメントアウトしています。 (by rensatopc)
+    // This code is not using, so It is comment outed. (by rensatopc; translated by rensatopc)
+//    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+//    public static class ClientModEvents
+//    {
+//
+//    }
 
     // 邪悪な村人の声を変える
+    // change bad villager's voice (translated by rensatopc)
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public void setEntitySounds(PlayLevelSoundEvent event) {
