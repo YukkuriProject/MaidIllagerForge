@@ -155,7 +155,7 @@ public class MixinIllagerModel {
             if (this.isHurt(entity) || entity.isDeadOrDying()) {  // ダメージを受けたもしくは死ぬ時 // When damaged or died (translated by rensatopc)
                 this.blinkEyeR.visible = false;
                 this.blinkEyeL.visible = false;
-                if (entity instanceof Pillager && !entity.isDeadOrDying()) {  // ピリジャーがダメージを受けた時は利き腕とは逆の目だけ閉じる // When pilliger damaged, He close main arm and reverse eye (translated by rensatopc)
+                if (entity instanceof Pillager && !entity.isDeadOrDying()) {  // ピリジャーがダメージを受けた時は利き腕とは逆の目だけ閉じる // When pilliger damaged, Xe close main arm and reverse eye (translated by rensatopc)
                     ModelPart closeEye = entity.getMainArm() == HumanoidArm.LEFT ? this.hurtEyeR : this.hurtEyeL;
                     closeEye.visible = true;
                 } else {
