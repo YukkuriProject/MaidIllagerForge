@@ -1,0 +1,17 @@
+{
+  "entity.evoker.ambient": "エヴォーカーが誘いかける",
+  "entity.evoker.celebrate": "エヴォーカーが笑う",
+  "entity.evoker.death": "エヴォーカーが死ぬ",
+  "entity.evoker.hurt": "エヴォーカーがダメージを受ける",
+  "entity.illusioner.ambient": "イリュージョナーがその場を取り繕う",
+  "entity.illusioner.death": "イリュージョナーが死ぬ",
+  "entity.illusioner.hurt": "イリュージョナーがダメージを受ける",
+  "entity.pillager.ambient": "ピリジャーが言いがかりをつける",
+  "entity.pillager.celebrate": "ピリジャーが嘲笑する",
+  "entity.pillager.death": "ピリジャーが死ぬ",
+  "entity.pillager.hurt": "ピリジャーがダメージを受ける",
+  "entity.vindicator.ambient": "ヴィンディケーターが呼びかける",
+  "entity.vindicator.celebrate": "ヴィンディケーターが笑う",
+  "entity.vindicator.death": "ヴィンディケーターが死ぬ",
+  "entity.vindicator.hurt": "ヴィンディケーターがダメージを受ける"
+}

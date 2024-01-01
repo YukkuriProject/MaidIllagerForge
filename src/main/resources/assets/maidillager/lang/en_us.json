@@ -1,0 +1,17 @@
+{
+  "entity.evoker.ambient": "Evoker giggles",
+  "entity.evoker.celebrate": "Evoker laughs",
+  "entity.evoker.death": "Evoker dies",
+  "entity.evoker.hurt": "Evoker hurts",
+  "entity.illusioner.ambient": "Illusioner greets",
+  "entity.illusioner.death": "Illusioner dies",
+  "entity.illusioner.hurt": "Illusioner hurts",
+  "entity.pillager.ambient": "Pillager mutters",
+  "entity.pillager.celebrate": "Pillager scoffs",
+  "entity.pillager.death": "Pillager dies",
+  "entity.pillager.hurt": "Pillager hurts",
+  "entity.vindicator.ambient": "Vindicator calls",
+  "entity.vindicator.celebrate": "Vindicator laughs",
+  "entity.vindicator.death": "Vindicator dies",
+  "entity.vindicator.hurt": "Vindicator hurts"
+}
