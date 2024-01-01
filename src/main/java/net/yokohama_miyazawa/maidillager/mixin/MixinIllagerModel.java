@@ -9,6 +9,7 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.joml.Quaternionf;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -29,6 +30,12 @@ public class MixinIllagerModel {
     private ModelPart hurtEyeL;
     private ModelPart mouth;
     private ModelPart Skirt;
+
+    // オリジナルとの身長差分、体全体を下にずらす
+    // move by original's height (translated by rensatopc)
+    private static final float heightOffset = 8.0F;
+    // ラヴェジャー等に乗っている時は、少しだけ下半身がめり込む程度に位置を補正する
+    private static final float ridingOffset = heightOffset - 2.0F;
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void init(ModelPart root, CallbackInfo cir) {
@@ -64,10 +71,6 @@ public class MixinIllagerModel {
     private static void onCreateBodyLayer(CallbackInfoReturnable<LayerDefinition> cir) {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
-
-        // オリジナルとの身長差分、体全体を下にずらす
-        // move by original's height (translated by rensatopc)
-        float heightOffset = 8.0F;
 
         PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F+heightOffset, 0.0F));
         head.addOrReplaceChild("chignonB", CubeListBuilder.create().texOffs(52, 10).addBox(-2.0F, -7.2F, 4.0F, 4.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
@@ -110,6 +113,7 @@ public class MixinIllagerModel {
             this.forelock.visible = true;
         }
 
+        ModelPart root = ((IllagerModel)(Object)this).root();
         ModelPart head = ((IllagerModel)(Object)this).getHead();
         head.yRot = netHeadYaw * ((float)Math.PI / 180F);
         head.xRot = headPitch * ((float)Math.PI / 180F);
@@ -118,13 +122,15 @@ public class MixinIllagerModel {
         ModelPart leftArm  = ((IllagerModelAccessor) (Object)this).getLeftArm();
         ModelPart rightLeg = ((IllagerModelAccessor) (Object)this).getRightLeg();
         ModelPart leftLeg  = ((IllagerModelAccessor) (Object)this).getLeftLeg();
-        // TODO: ラヴェジャーに乗っている時に下半身がめり込むのを解消する
+
         if (((IllagerModel)(Object)this).riding) {  // ラヴェジャーに乗っている時 // when riding a ravager (translated by rensatopc)
+            root.y = -ridingOffset;
             this.setAngle(rightArm, -0.6283185F, 0.0F, 0.0F);
             this.setAngle(leftArm, -0.6283185F, 0.0F, 0.0F);
             this.setAngle(rightLeg, -1.256637F, 0.3141593F, 0.0F);
             this.setAngle(leftLeg, -1.256637F, -0.3141593F, 0.0F);
         } else {
+            root.y = 0.0F;
             float xAngle = (float)Math.cos(limbSwing * 0.6662) * 2.0F * limbSwingAmount * 0.5F;
             float defaultZAngle = (float)Math.PI / 5.0F;
             float zSwing = ((float)Math.PI / 40.0F) * (float)Math.sin(3.0F * ageInTicks * ((float)Math.PI / 180F));
@@ -141,9 +147,21 @@ public class MixinIllagerModel {
                 this.setAngle(rightArm, 0.0F, 0.0F, (float)Math.PI * (2.0F / 3.0F));
                 this.setAngle(leftArm, 0.0F, 0.0F, -(float)Math.PI * (2.0F / 3.0F));
             }
-            case BOW_AND_ARROW, CROSSBOW_HOLD, CROSSBOW_CHARGE -> {
+            case BOW_AND_ARROW -> {
                 this.setAngle(rightArm, -(float)Math.PI / 2.0F + head.xRot, -(float)Math.PI / 15.0F, 0.0F);
                 this.setAngle(leftArm, -(float)Math.PI / 2.0F + head.xRot, (float)Math.PI / 15.0F, 0.0F);
+            }
+            case CROSSBOW_CHARGE -> {
+                float xAngle_right = (entity.getMainArm() == HumanoidArm.LEFT) ? -(float)Math.PI / 2.5F : -(float)Math.PI / 3.0F;
+                float xAngle_left  = (entity.getMainArm() == HumanoidArm.LEFT) ? -(float)Math.PI / 3.0F : -(float)Math.PI / 2.5F;
+                this.setAngle(rightArm, xAngle_right, -(float)Math.PI / 5.0F, 0.0F);
+                this.setAngle(leftArm, xAngle_left, (float)Math.PI / 5.0F, 0.0F);
+            }
+            case CROSSBOW_HOLD -> {
+                float yAngle_right = (entity.getMainArm() == HumanoidArm.LEFT) ? -(float)Math.PI / 4.5F : -(float)Math.PI / 10.0F;
+                float yAngle_left  = (entity.getMainArm() == HumanoidArm.LEFT) ? (float)Math.PI / 10.0F : (float)Math.PI / 4.5F;
+                this.setAngle(rightArm, -(float)Math.PI / 2.0F + head.xRot, yAngle_right, 0.0F);
+                this.setAngle(leftArm, -(float)Math.PI / 2.0F + head.xRot, yAngle_left, 0.0F);
             }
             case CELEBRATING -> {
                 this.setAngle(rightArm, 0.0F, 0.0F, (float)Math.PI * (5.0F / 6.0F));
@@ -201,11 +219,24 @@ public class MixinIllagerModel {
 
     // 腕と武器の位置関係を調整
     // control arm position and weapon position (translated by rensatopc)
-    @Inject(method = "translateToHand", at = @At("TAIL"), cancellable = true)
+    @Inject(method = "translateToHand", at = @At("HEAD"), cancellable = true)
     private void onTranslateToHand(HumanoidArm arm, PoseStack poseStack, CallbackInfo cir) {
-        double dx = (arm == HumanoidArm.LEFT) ? -0.05 : 0.05;
-        double dy = -0.1;
-        double dz = 0.04;
-        poseStack.translate(dx, dy, dz);
+        ModelPart attackingArm = (arm == HumanoidArm.LEFT)
+                ? ((IllagerModelAccessor) (Object)this).getLeftArm()
+                : ((IllagerModelAccessor) (Object)this).getRightArm();
+
+        // 武器と腕の位置関係を微調整
+        poseStack.translate(
+                ((arm == HumanoidArm.LEFT) ? 3.0F : -3.0F) / 16.0F,
+                ((((IllagerModel)(Object)this).riding) ? 7.5F - ridingOffset : 7.5F) / 16.0F,
+                0.75F / 16.0F);
+        // 中心点を設定しつつ、腕と武器の角度を同期
+        poseStack.rotateAround(
+                (new Quaternionf()).rotateZYX(attackingArm.zRot, attackingArm.yRot, attackingArm.xRot),
+                attackingArm.x / 320.0F,
+                attackingArm.y / 56.0F,
+                0.0F);
+
+        cir.cancel();
     }
 }
