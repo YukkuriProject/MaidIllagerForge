@@ -24,6 +24,8 @@ public class MixinIllagerModel {
     private ModelPart tail;
     private ModelPart hair;
     private ModelPart forelock;
+    private ModelPart normalEyeR;
+    private ModelPart normalEyeL;
     private ModelPart blinkEyeR;
     private ModelPart blinkEyeL;
     private ModelPart hurtEyeR;
@@ -44,6 +46,8 @@ public class MixinIllagerModel {
         this.tail = head.getChild("tail");
         this.hair = head.getChild("hair");
         this.forelock = head.getChild("forelock");
+        this.normalEyeR = head.getChild("normalEyeR");
+        this.normalEyeL = head.getChild("normalEyeL");
         this.blinkEyeR = head.getChild("blinkEyeR");
         this.blinkEyeL = head.getChild("blinkEyeL");
         this.hurtEyeR = head.getChild("hurtEyeR");
@@ -77,6 +81,8 @@ public class MixinIllagerModel {
         head.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(46, 20).addBox(-1.5F, -7.8F, 4.0F, 3.0F, 9.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
         head.addOrReplaceChild("hair", CubeListBuilder.create().texOffs(0, 32).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 12.0F, 8.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, 0.0F, 0.0F));
         head.addOrReplaceChild("forelock", CubeListBuilder.create().texOffs(44, 33).addBox(-4.0F, -8.0F, -4.5F, 8.0F, 4.0F, 2.0F, new CubeDeformation(0.3F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        head.addOrReplaceChild("normalEyeR", CubeListBuilder.create().texOffs(0, 3).addBox(-3.0F, -4.0F, -4.01F, 2.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        head.addOrReplaceChild("normalEyeL", CubeListBuilder.create().texOffs(0, 3).mirror().addBox(1.0F, -4.0F, -4.01F, 2.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
         head.addOrReplaceChild("blinkEyeR", CubeListBuilder.create().texOffs(4, 0).addBox(-3.0F, -4.0F, -4.01F, 2.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
         head.addOrReplaceChild("blinkEyeL", CubeListBuilder.create().texOffs(4, 0).mirror().addBox(1.0F, -4.0F, -4.01F, 2.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
         head.addOrReplaceChild("hurtEyeR", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -4.0F, -4.01F, 2.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
@@ -171,11 +177,15 @@ public class MixinIllagerModel {
 
         if (!(entity instanceof Illusioner)) {  // イリュージョナー以外の表情変化 // expression change without a illusioner
             if (this.isHurt(entity) || entity.isDeadOrDying()) {  // ダメージを受けたもしくは死ぬ時 // When damaged or died (translated by rensatopc)
+                this.normalEyeR.visible = false;
+                this.normalEyeL.visible = false;
                 this.blinkEyeR.visible = false;
                 this.blinkEyeL.visible = false;
                 if (entity instanceof Pillager && !entity.isDeadOrDying()) {  // ピリジャーがダメージを受けた時は利き腕とは逆の目だけ閉じる // When pilliger damaged, Xe close main arm and reverse eye (translated by rensatopc)
                     ModelPart closeEye = entity.getMainArm() == HumanoidArm.LEFT ? this.hurtEyeR : this.hurtEyeL;
+                    ModelPart openEye  = entity.getMainArm() == HumanoidArm.LEFT ? this.normalEyeL : this.normalEyeR;
                     closeEye.visible = true;
+                    openEye.visible = true;
                 } else {
                     this.hurtEyeR.visible = true;
                     this.hurtEyeL.visible = true;
@@ -184,17 +194,21 @@ public class MixinIllagerModel {
                     this.mouth.visible = true;
                 }
             } else if (this.shouldBlink(entity, ageInTicks)) {  // 瞬き // eye blink (translated by rensatopc)
+                this.normalEyeR.visible = false;
+                this.normalEyeL.visible = false;
                 this.hurtEyeR.visible = false;
                 this.hurtEyeL.visible = false;
-                this.mouth.visible = false;
                 this.blinkEyeR.visible = true;
                 this.blinkEyeL.visible = true;
+                this.mouth.visible = false;
             } else {
+                this.normalEyeR.visible = true;
+                this.normalEyeL.visible = true;
                 this.hurtEyeR.visible = false;
                 this.hurtEyeL.visible = false;
-                this.mouth.visible = false;
                 this.blinkEyeR.visible = false;
                 this.blinkEyeL.visible = false;
+                this.mouth.visible = false;
             }
         }
 
