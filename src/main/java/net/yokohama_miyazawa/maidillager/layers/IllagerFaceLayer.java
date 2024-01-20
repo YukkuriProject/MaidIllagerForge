@@ -43,15 +43,15 @@ public class IllagerFaceLayer<T extends AbstractIllager, M extends EntityModel<T
         super(parent);
     }
 
-    public void render(PoseStack poseStack, MultiBufferSource source, int p_117648_, T entity, float p_117650_, float p_117651_, float p_117652_, float p_117653_, float p_117654_, float p_117655_) {
+    public void render(PoseStack poseStack, MultiBufferSource source, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         if (entity.isInvisible()) return;
         M parentModel = this.getParentModel();
         if (entity instanceof Evoker || entity instanceof Vindicator) {
             ResourceLocation resourceLocation = resourceLocationsForEvokerAndVindicator[entity.getId() % resourceLocationsForEvokerAndVindicator.length];
-            renderColoredCutoutModel(parentModel, resourceLocation, poseStack, source, p_117648_, entity, 1.0F, 1.0F, 1.0F);
+            renderColoredCutoutModel(parentModel, resourceLocation, poseStack, source, light, entity, 1.0F, 1.0F, 1.0F);
         } else if (entity instanceof Pillager) {
             ResourceLocation resourceLocation = resourceLocationsForPillager[entity.getId() % resourceLocationsForPillager.length];
-            renderColoredCutoutModel(parentModel, resourceLocation, poseStack, source, p_117648_, entity, 1.0F, 1.0F, 1.0F);
+            renderColoredCutoutModel(parentModel, resourceLocation, poseStack, source, light, entity, 1.0F, 1.0F, 1.0F);
         }
     }
 }
